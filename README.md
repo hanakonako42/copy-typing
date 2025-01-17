@@ -8,5 +8,5 @@
 
 | ディレクトリ名           | 教材名                                                                       | 画像 |
 | :----------------------- | :--------------------------------------------------------------------------- | :--- |
-| python-hit-and-blow-game |                                                                              |      |
+| python-hit-and-blow-game | [いちばんやさしい Python 入門教室](https://amzn.asia/d/i3HYBYg)              |      |
 | deep-learning-basics     | [ゼロから作る Deep Learning](https://www.oreilly.co.jp/books/9784873117584/) |      |

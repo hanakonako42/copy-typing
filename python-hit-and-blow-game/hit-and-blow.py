@@ -48,16 +48,28 @@ answer = [random.randint(0, 9),
 
 # make a window
 root = tk.Tk()
-root.geometry("400x150")
+root.geometry("600x400")
 root.title("数当てゲーム")
+
 # make a label
 label1 = tk.Label(root, text="数を入力してね", font=("Helvetica, 14"))
 label1.place(x = 20, y = 20)
+
 # make a text box
 txtbox1 = tk.Entry(width = 4, font=("Helvetica, 28"))
 txtbox1.place(x = 120, y = 60)
+rirekibox = tk.Text(root, font=("Helvetica", 14))
+rirekibox.place(x  = 400, y = 0, width=200, height=400)
+
 # make a button
 button1 = tk.Button(root, text="チェック", font=("Helvetica, 14"), command=ButtonClick)
 button1.place(x = 220, y = 60)
+
 # show a window
 root.mainloop()
+
+
+
+library
+how to test
+
