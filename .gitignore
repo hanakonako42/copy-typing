@@ -8,6 +8,12 @@ yarn-error.log
 dist/
 build/
 
+# Jest関連
+coverage/
+
+# TypeScriptのビルド情報
+*.tsbuildinfo
+
 # 環境変数ファイル
 .env
 .env.local
