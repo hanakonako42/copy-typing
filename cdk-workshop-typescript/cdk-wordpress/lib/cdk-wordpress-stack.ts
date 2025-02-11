@@ -1,9 +1,10 @@
-import { Stack, StackProps, aws_elasticloadbalancingv2, aws_signer } from 'aws-cdk-lib';
+import { Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as ec2 from "aws-cdk-lib/aws-ec2";
 import * as rds from 'aws-cdk-lib/aws-rds';
 import * as elbv2 from "aws-cdk-lib/aws-elasticloadbalancingv2";
 import * as targets from "aws-cdk-lib/aws-elasticloadbalancingv2-targets";
+
 import { WebServerInstance } from './constructs/web-server-instance';
 
 export class CdkWordpressStack extends Stack {
@@ -27,7 +28,8 @@ export class CdkWordpressStack extends Stack {
       vpc,
       instanceType: ec2.InstanceType.of(ec2.InstanceClass.T3, ec2.InstanceSize.SMALL),
       vpcSubnets: { subnetType: ec2.SubnetType.PRIVATE_WITH_EGRESS},
-      databaseName: 'wordpress'
+      databaseName: 'wordpress',
+      multiAz: true,
     });
 
     Database1.connections.allowDefaultPortFrom(webServer1.instance);
