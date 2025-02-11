@@ -13,3 +13,4 @@
 |003| amazon-bedrock-introdubtion-to-gen-ai-app-dev     |  |      |
 |004| typescript-test-introduction     |  |      |
 |005| cdk-workshop-typescript     | [TypeScript の基礎から始める AWS CDK 開発入門](https://catalog.workshops.aws/typescript-and-cdk-for-beginner/ja-JP/) |      |
+|006| cdk-immersion-day-workshop-typescript     | [AWS CDK Immersion Day ワークショップ](https://catalog.us-east-1.prod.workshops.aws/workshops/10141411-0192-4021-afa8-2436f3c66bd8/ja-JP) |      |
