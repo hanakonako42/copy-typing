@@ -15,8 +15,12 @@ export class CdkWordpressStack extends Stack {
     });
 
     const webServer1 = new WebServerInstance(this, 'WebServer1', {
-      vpc
+      vpc,
     });
+
+    const webServer2 = new WebServerInstance(this, 'Webserver2', {
+      vpc,
+    })
 
     const Database1 = new rds.DatabaseInstance(this, 'MysqlInstance1', {
       engine: rds.DatabaseInstanceEngine.mysql( { version: rds.MysqlEngineVersion.VER_8_0_36}),
@@ -27,6 +31,7 @@ export class CdkWordpressStack extends Stack {
     });
 
     Database1.connections.allowDefaultPortFrom(webServer1.instance);
+    Database1.connections.allowDefaultPortFrom(webServer2.instance);
 
     const alb = new elbv2.ApplicationLoadBalancer(this, 'ALB', {
       vpc,
@@ -39,12 +44,14 @@ export class CdkWordpressStack extends Stack {
 
     listener.addTargets("ApplicationFleet", {
       port: 80,
-      targets: [new targets.InstanceTarget(webServer1.instance, 80)],
+      targets: [new targets.InstanceTarget(webServer1.instance, 80),
+        new targets.InstanceTarget(webServer2.instance, 80)],
       healthCheck: {
         path: "/wp-includes/images/blank.gif",
       },
     });
 
     webServer1.instance.connections.allowFrom(alb, ec2.Port.tcp(80));
+    webServer2.instance.connections.allowFrom(alb, ec2.Port.tcp(80));
   }
 }
