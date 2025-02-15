@@ -12,8 +12,8 @@ test("DynamoDB Table Created", () => {
       handler: "hello.handler",
       code: Code.fromAsset("lambda"),
     }),
+  });
 
-  // THEN
   const template = Template.fromStack(stack);
   template.resourceCountIs("AWS::DynamoDB::Table", 1);
 });
