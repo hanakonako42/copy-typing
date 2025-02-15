@@ -4,6 +4,7 @@ import { Construct } from "constructs";
 
 export interface HitCounterProps {
   downstream: IFunction;
+  readCapacity?: number;
 }
 
 export class HitCounter extends Construct {
@@ -12,11 +13,16 @@ export class HitCounter extends Construct {
   public readonly table: Table;
 
   constructor(scope: Construct, id: string, props: HitCounterProps) {
+    if (props.readCapacity !== undefined && (props.readCapacity < 5 || props.readCapacity > 20)) {
+      throw new Error("readCapacity must be greater than 5 and less than 20");
+    }
+    
     super(scope, id);
 
     this.table = new Table(this, "Hits", {
       partitionKey: { name: "path", type: AttributeType.STRING },
       encryption: TableEncryption.AWS_MANAGED,
+      readCapacity: props.readCapacity ?? 5,
     });
 
     this.handler = new Function(this, "HitCounterHandler", {
