@@ -15,3 +15,4 @@
 |005| cdk-workshop-typescript     | [TypeScript の基礎から始める AWS CDK 開発入門](https://catalog.workshops.aws/typescript-and-cdk-for-beginner/ja-JP/) |      |
 |006| cdk-immersion-day-workshop-typescript     | [AWS CDK Immersion Day ワークショップ](https://catalog.us-east-1.prod.workshops.aws/workshops/10141411-0192-4021-afa8-2436f3c66bd8/ja-JP) |      |
 |007| cloudtech-aws-lessons     | [CloudTech-AWSレッスン動画コース](https://kws-cloud-tech.com/courses/aws-course) |      |
+|008| practical-aws-cdk     | [実践！AWS CDK ](https://dev.classmethod.jp/articles/cdk-practice-1-introduction/) |      |
