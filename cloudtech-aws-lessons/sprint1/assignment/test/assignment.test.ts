@@ -3,7 +3,7 @@ import * as assertions from 'aws-cdk-lib/assertions';
 import * as Assignment from '../lib/assignment-stack';
 
 /*==================================================================
- *vpc
+ * vpc
  *==================================================================*/
 test('Vpc', () => {
     const app = new cdk.App();
@@ -19,7 +19,7 @@ test('Vpc', () => {
 });
 
 /*==================================================================
- *subnet
+ * subnet
  *==================================================================*/
 test ('Subnet', () => {
     const app = new cdk.App();
@@ -40,3 +40,22 @@ test ('Subnet', () => {
          * I'm getting also an error and don't know hot to test it.*/
     })
 })
+
+/*==================================================================
+ * RouteTable
+ *==================================================================*/
+test ('RouteTable', () => {
+    const app = new cdk.App();
+    const stack = new Assignment.AssignmentStack(app, 'AssignmentStack');
+
+    const template = assertions.Template.fromStack(stack);
+
+    template.resourceCountIs('AWS::EC2::RouteTable', 3);
+    template.hasResourceProperties('AWS::EC2::RouteTable', {
+        Tags: [ { 'Key': 'Name', 'Value': 'web-routetable'} ]
+    })
+});
+
+/*==================================================================
+ * InternetGateway
+ *==================================================================*/

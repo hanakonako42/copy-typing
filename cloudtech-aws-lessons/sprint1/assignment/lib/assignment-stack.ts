@@ -33,14 +33,18 @@ export class AssignmentStack extends cdk.Stack {
       tags: [ { key: 'Name', value: 'api-routetable'} ]
     });
 
-    const WebSubnetRouteTableAssociation = new ec2.CfnSubnetRouteTableAssociation(this, 'WebRTBAssociation', {
+    const WebSubnetRouteTableAssociation = new ec2.CfnSubnetRouteTableAssociation(this, 'WebRtbAssociation', {
       routeTableId: webRouteTable.ref,
       subnetId: webSubnet.ref
     });
 
-    const ApiSubnetRouteTableAssociation = new ec2.CfnSubnetRouteTableAssociation(this, 'ApiRTBAssociation', {
+    const ApiSubnetRouteTableAssociation = new ec2.CfnSubnetRouteTableAssociation(this, 'ApiRtbAssociation', {
       routeTableId: apiRouteTable.ref,
       subnetId: apiSubnet.ref
     });
+
+    const reservationIgw = new ec2.CfnInternetGateway(this, 'InternetGateawy', {
+      tags: [ { key: 'Name', value: 'reservation-ig' } ]
+    })
   }
 }
