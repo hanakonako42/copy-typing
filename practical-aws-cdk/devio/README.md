@@ -1,14 +1,17 @@
-# Welcome to your CDK TypeScript project
+# Practical AWS CDK
 
-This is a blank project for CDK development with TypeScript.
+こちらのブログで勉強した際のコードをまとめています
+- [実践！AWS CDK](https://dev.classmethod.jp/articles/cdk-practice-1-introduction/)
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+## memo
 
-## Useful commands
+```
+# メタデータをCFNテンプレートに出力しない
+cdk synth --path-metadata false
+cdk synth --no-path-metadata
+cdk deploy --path-metadata false
+cdk deploy --no-path-metadata
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `npx cdk deploy`  deploy this stack to your default AWS account/region
-* `npx cdk diff`    compare deployed stack with current state
-* `npx cdk synth`   emits the synthesized CloudFormation template
+# Version reportingをオフにするオプション（本ディレクトリは設定ファイルで無効済み）
+--no-version-reporting
+```
