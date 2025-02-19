@@ -1,6 +1,7 @@
 # Practical AWS CDK
 
-こちらのブログで勉強した際のコードをまとめています
+こちらのブログで勉強した際のコードをまとめています。
+すごく勉強になります。
 - [実践！AWS CDK](https://dev.classmethod.jp/articles/cdk-practice-1-introduction/)
 
 ## memo
