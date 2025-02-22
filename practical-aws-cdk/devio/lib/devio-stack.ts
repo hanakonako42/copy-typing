@@ -3,6 +3,7 @@ import { Construct } from 'constructs';
 import { Vpc } from './resource/vpc';
 import { Subnet } from './resource/subnet';
 import { InternetGateway } from './resource/internetGateway';
+import { ElasticIp } from './resource/ElasticIp';
 
 export class DevioStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -19,5 +20,9 @@ export class DevioStack extends cdk.Stack {
     // create igw and attach it to vpc
     const internetGateway = new InternetGateway(vpc.vpc);
     internetGateway.createResources(this);
+
+    // get eips
+    const elasticIp = new ElasticIp();
+    elasticIp.createResources(this);
   }
 }
