@@ -38,28 +38,28 @@ export class Subnet extends Resource {
             id: 'SubnetApp1a',
             cidrBlock: '10.0.21.0/24',
             availabilityZone: 'ap-northeast-1a',
-            resouceName: 'subnet-public-1a',
+            resouceName: 'subnet-app-1a',
             assign: subnet => this.app1a = subnet
         },
         {
             id: 'SubnetApp1c',
             cidrBlock: '10.0.22.0/24',
             availabilityZone: 'ap-northeast-1c',
-            resouceName: 'subnet-public-1c',
+            resouceName: 'subnet-app-1c',
             assign: subnet => this.app1c = subnet
         },
         {
             id: 'SubnetDb1a',
             cidrBlock: '10.0.31.0/24',
             availabilityZone: 'ap-northeast-1a',
-            resouceName: 'subnet-public-1a',
+            resouceName: 'subnet-db-1a',
             assign: subnet => this.db1a = subnet
         },
         {
             id: 'SubnetDb1c',
             cidrBlock: '10.0.32.0/24',
             availabilityZone: 'ap-northeast-1c',
-            resouceName: 'subnet-public-1c',
+            resouceName: 'subnet-db-1c',
             assign: subnet => this.db1c = subnet
         }
     ];

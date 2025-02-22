@@ -2,6 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { Vpc } from './resource/vpc';
 import { Subnet } from './resource/subnet';
+import { InternetGateway } from './resource/internetGateway';
 
 export class DevioStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -14,5 +15,9 @@ export class DevioStack extends cdk.Stack {
     // create subnets    
     const subnet = new Subnet(vpc.vpc);
     subnet.createResources(this);
+
+    // create igw and attach it to vpc
+    const internetGateway = new InternetGateway(vpc.vpc);
+    internetGateway.createResources(this);
   }
 }

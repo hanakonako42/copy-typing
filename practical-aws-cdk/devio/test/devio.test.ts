@@ -53,3 +53,17 @@ test('Subnet', () => {
         Tags: [{ 'Key': 'Name', 'Value': 'undefined-undefined-subnet-db-1c' }]
     });
 })
+
+test('InternetGateway',() => {
+    const app = new cdk.App();
+    const stack = new Devio.DevioStack(app, 'DevioStack');
+
+    const template = Template.fromStack(stack);
+
+    template.resourceCountIs('AWS::EC2::InternetGateway', 1);
+    template.resourceCountIs('AWS::EC2::VPCGatewayAttachment', 1);
+    template.hasResourceProperties('AWS::EC2::InternetGateway', {
+        Tags: [{ 'Key': 'Name', 'Value': 'undefined-undefined-igw' }]
+    });
+})
+
