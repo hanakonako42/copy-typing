@@ -43,7 +43,7 @@ export class NatGateway extends Resource {
     ) {
         super();
         this.subnetPublic1a = subnetPublic1a;
-        this.subnetPublic1a = subnetPublic1c;
+        this.subnetPublic1c = subnetPublic1c;
         this.elasticIpNgw1a = elasticIpNgw1a;
         this.elasticIpNgw1c = elasticIpNgw1c;
     };
@@ -58,7 +58,7 @@ export class NatGateway extends Resource {
     private createNatGateway(scope: Construct, resourceInfo: ResourceInfo): CfnNatGateway {
         const natGateway = new CfnNatGateway(scope, resourceInfo.id, {
             allocationId: resourceInfo.allocationId(),
-            subnetId: resourceInfo.allocationId(),
+            subnetId: resourceInfo.subnetId(),
             tags: [{
                 key: 'Name',
                 value: this.createResourceName(scope, resourceInfo.resourceName)
