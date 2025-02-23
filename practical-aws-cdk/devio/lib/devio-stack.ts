@@ -4,6 +4,7 @@ import { Vpc } from './resource/vpc';
 import { Subnet } from './resource/subnet';
 import { InternetGateway } from './resource/internetGateway';
 import { ElasticIp } from './resource/ElasticIp';
+import { NatGateway } from './resource/NatGateway';
 
 export class DevioStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -24,5 +25,14 @@ export class DevioStack extends cdk.Stack {
     // get eips
     const elasticIp = new ElasticIp();
     elasticIp.createResources(this);
+
+    // create ngws
+    const natGateway = new NatGateway(
+      subnet.public1a,
+      subnet.public1c,
+      elasticIp.ngw1a,
+      elasticIp.ngw1c
+    );
+    natGateway.createResources(this);
   }
 }

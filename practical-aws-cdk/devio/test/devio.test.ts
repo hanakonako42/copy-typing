@@ -67,7 +67,7 @@ test('InternetGateway',() => {
     });
 })
 
-test ('ElasticIp', () => {
+test('ElasticIp', () => {
     const app = new cdk.App();
     const stack = new Devio.DevioStack(app, 'DevioStack');
 
@@ -77,5 +77,20 @@ test ('ElasticIp', () => {
     template.hasResourceProperties('AWS::EC2::EIP', {
         Domain: 'vpc',
         Tags: [{ 'Key': 'Name', 'Value': 'undefined-undefined-eip-ngw-1c'}]
+    });
+});
+
+test('NatGateway', () => {
+    const app = new cdk.App;
+    const stack = new Devio.DevioStack(app, 'DevioStack');
+
+    const template = Template.fromStack(stack);
+
+    template.resourceCountIs('AWS::EC2::NatGateway', 2);
+    template.hasResourceProperties('AWS::EC2::NatGateway', {
+        Tags: [{ 'Key': 'Name', 'Value': 'undefined-undefined-ngw-1a' }]
+    });
+    template.hasResourceProperties('AWS::EC2::NatGateway', {
+        Tags: [{ 'Key': 'Name', 'Value': 'undefined-undefined-ngw-1c' }]
     });
 });
