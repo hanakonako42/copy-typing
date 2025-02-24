@@ -7,6 +7,7 @@ import { ElasticIp } from './resource/ElasticIp';
 import { NatGateway } from './resource/NatGateway';
 import { RouteTable } from './resource/RouteTable';
 import { NetworkAcl } from './resource/networkAcl';
+import { IamRole } from './resource/iam';
 
 export class DevioStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -64,5 +65,8 @@ export class DevioStack extends cdk.Stack {
     );
     networkAcl.createResources(this)
 
+    // create iam roles
+    const iamRole = new IamRole();
+    iamRole.createResources(this);
   };
 }
