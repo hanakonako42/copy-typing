@@ -6,6 +6,7 @@ import { InternetGateway } from './resource/internetGateway';
 import { ElasticIp } from './resource/ElasticIp';
 import { NatGateway } from './resource/NatGateway';
 import { RouteTable } from './resource/RouteTable';
+import { NetworkAcl } from './resource/networkAcl';
 
 export class DevioStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -50,5 +51,18 @@ export class DevioStack extends cdk.Stack {
       natGateway.ngw1c
     );
     routeTable.createResources(this);
+
+    // create network acls and associate them to subnet
+    const networkAcl = new NetworkAcl(
+      vpc.vpc,
+      subnet.public1a,
+      subnet.public1c,
+      subnet.app1a,
+      subnet.app1c,
+      subnet.db1a,
+      subnet.db1c
+    );
+    networkAcl.createResources(this)
+
   };
 }
