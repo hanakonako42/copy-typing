@@ -234,41 +234,91 @@ test('IamRole', () => {
     const template = Template.fromStack(stack);
 
     template.resourceCountIs('AWS::IAM::Role', 2);
-    // template.hasResource('AWS::IAM::Role', Match.objectLike({
-    //     AssumeRolePolicyDocument: {
-    //         Statement: [{
-    //             Effect: 'Allow',
-    //             Principal: {
-    //                 Service: 'ec2.amazonaws.com'
-    //             },
-    //             Action: 'sts:AssumeRole'
-    //         }]
-    //     },
-    //     ManagedPolicyArns: [
-    //         'arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore',
-    //         'arn:aws:iam::aws:policy/AmazonRDSFullAccess'
-    //     ],
-    //     RoleName: 'undefined-undefined-role-ec2'
-    // }));
-    // template.hasResourceProperties('AWS::IAM::Role', Match.objectLike({
-    //     AssumeRolePolicyDocument: {
-    //         Statement: [{
-    //             Effect: 'Allow',
-    //             Principal: {
-    //                 Service: 'monitoring.rds.amazonaws.com'
-    //             },
-    //             Action: 'sts:AssumeRole'
-    //         }]
-    //     },
-    //     ManagedPolicyArns: [
-    //         'arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole'
-    //     ],
-    //     RoleName: 'undefined-undefined-role-rds'
-    // }));
+    template.hasResourceProperties('AWS::IAM::Role', Match.objectLike({
+        AssumeRolePolicyDocument: {
+            Statement: [{
+                Effect: 'Allow',
+                Principal: {
+                    Service: 'ec2.amazonaws.com'
+                },
+                Action: 'sts:AssumeRole'
+            }]
+        },
+        ManagedPolicyArns: [
+            'arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore',
+            'arn:aws:iam::aws:policy/AmazonRDSFullAccess'
+        ],
+        RoleName: 'undefined-undefined-role-ec2'
+    }));
+    template.hasResourceProperties('AWS::IAM::Role', Match.objectLike({
+        AssumeRolePolicyDocument: {
+            Statement: [{
+                Effect: 'Allow',
+                Principal: {
+                    Service: 'monitoring.rds.amazonaws.com'
+                },
+                Action: 'sts:AssumeRole'
+            }]
+        },
+        ManagedPolicyArns: [
+            'arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole'
+        ],
+        RoleName: 'undefined-undefined-role-rds'
+    }));
 
     template.resourceCountIs('AWS::IAM::InstanceProfile', 1);
     template.hasResourceProperties('AWS::IAM::InstanceProfile', {
         Roles: Match.anyValue(),
         InstanceProfileName: 'undefined-undefined-role-ec2'
+    });
+
+    template.resourceCountIs('AWS::EC2::SecurityGroup', 3);
+    template.hasResourceProperties('AWS::EC2::SecurityGroup', {
+        GroupDescription: 'for ALB',
+        GroupName: 'undefined-undefined-sg-alb',
+        VpcId: Match.anyValue(),
+        Tags: [{ 'Key': 'Name', 'Value': 'undefined-undefined-sg-alb' }]
+    });
+    template.hasResourceProperties('AWS::EC2::SecurityGroup', {
+        GroupDescription: 'for EC2',
+        GroupName: 'undefined-undefined-sg-ec2',
+        VpcId: Match.anyValue(),
+        Tags: [{ 'Key': 'Name', 'Value': 'undefined-undefined-sg-ec2' }]
+    });
+    template.hasResourceProperties('AWS::EC2::SecurityGroup', {
+        GroupDescription: 'for RDS',
+        GroupName: 'undefined-undefined-sg-rds',
+        VpcId: Match.anyValue(),
+        Tags: [{ 'Key': 'Name', 'Value': 'undefined-undefined-sg-rds' }]
+    });
+
+    template.resourceCountIs('AWS::EC2::SecurityGroupIngress', 4);
+    template.hasResourceProperties('AWS::EC2::SecurityGroupIngress', {
+        IpProtocol: 'tcp',
+        CidrIp: '0.0.0.0/0',
+        FromPort: 80,
+        ToPort: 80,
+        GroupId: Match.anyValue()
+    });
+    template.hasResourceProperties('AWS::EC2::SecurityGroupIngress', {
+        IpProtocol: 'tcp',
+        CidrIp: '0.0.0.0/0',
+        FromPort: 443,
+        ToPort: 443,
+        GroupId: Match.anyValue()
+    });
+    template.hasResourceProperties('AWS::EC2::SecurityGroupIngress', {
+        IpProtocol: 'tcp',
+        FromPort: 80,
+        ToPort: 80,
+        GroupId: Match.anyValue(),
+        SourceSecurityGroupId: Match.anyValue()
+    });
+    template.hasResourceProperties('AWS::EC2::SecurityGroupIngress', {
+        IpProtocol: 'tcp',
+        FromPort: 3306,
+        ToPort: 3306,
+
+        SourceSecurityGroupId: Match.anyValue()
     });
 });

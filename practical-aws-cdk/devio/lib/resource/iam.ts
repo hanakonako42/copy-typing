@@ -38,10 +38,10 @@ export class IamRole extends Resource {
                 actions: ['sts:AssumeRole']
             },
             managedPolicyArns: [
-                'arn:aws:iam::aws:policy/AmazonRDSEnhancedMonitoringRole',
+                'arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole',
             ],
-            roleName: 'role-ec2',
-            assign: role => this.ec2 = role
+            roleName: 'role-rds',
+            assign: role => this.rds = role
         }
     ];
 

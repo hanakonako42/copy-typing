@@ -8,6 +8,7 @@ import { NatGateway } from './resource/NatGateway';
 import { RouteTable } from './resource/RouteTable';
 import { NetworkAcl } from './resource/networkAcl';
 import { IamRole } from './resource/iam';
+import { SecurityGroup } from './resource/securityGroup';
 
 export class DevioStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -68,5 +69,9 @@ export class DevioStack extends cdk.Stack {
     // create iam roles
     const iamRole = new IamRole();
     iamRole.createResources(this);
+
+    // create sg and configure igress rules
+    const securityGroup = new SecurityGroup(vpc.vpc);
+    securityGroup.createResources(this);
   };
 }
